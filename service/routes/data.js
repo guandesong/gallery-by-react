@@ -73,6 +73,24 @@ router.get('/write',function (req,res,next) {
         })
     })
 });
+//阅读模块写入接口
+router.get('/write_config',function (req,rep,next) {
+   var data = req.body.data;
+   var obj = JSON.parse(data);
+   var newData = JSON.stringify(obj);
+   fs.writeFile(PATH + 'config.json',newData,function (err) {
+       if(err){
+           return rep.send({
+               status : 0,
+               info : '写入数据错误！'
+           });
+       }
+       return rep.send({
+           status : 1,
+           info : obj
+       });
+   });
+});
 //生成guid
 function guid() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
