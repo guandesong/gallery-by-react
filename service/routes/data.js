@@ -77,7 +77,7 @@ router.get('/write',function (req,res,next) {
 router.post('/login',function (req,res,next) {
     var username = req.body.username;
     var password = req.body.password;
-    if(username === 'admin' && password === 123456){
+    if(username === 'admin' && password === '123456'){
         req.session.user = {
             username : username
         };
@@ -90,6 +90,7 @@ router.post('/login',function (req,res,next) {
         info : '登录失败'
     });
 });
+
 //生成guid
 function guid() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
