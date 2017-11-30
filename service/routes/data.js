@@ -73,23 +73,22 @@ router.get('/write',function (req,res,next) {
         })
     })
 });
-//阅读模块写入接口
-router.get('/write_config',function (req,rep,next) {
-   var data = req.body.data;
-   var obj = JSON.parse(data);
-   var newData = JSON.stringify(obj);
-   fs.writeFile(PATH + 'config.json',newData,function (err) {
-       if(err){
-           return rep.send({
-               status : 0,
-               info : '写入数据错误！'
-           });
-       }
-       return rep.send({
-           status : 1,
-           info : obj
-       });
-   });
+//登录接口
+router.post('/login',function (req,res,next) {
+    var username = req.body.username;
+    var password = req.body.password;
+    if(username === 'admin' && password === 123456){
+        req.session.user = {
+            username : username
+        };
+        return res.send({
+            status : 1
+        });
+    }
+    return res.send({
+        status : 0,
+        info : '登录失败'
+    });
 });
 //生成guid
 function guid() {
